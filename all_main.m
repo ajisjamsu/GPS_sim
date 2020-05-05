@@ -9,7 +9,7 @@ data_vec(1:2:end) = 0;
 [bb_in, mod_in] = generate_chips(data_vec, NUM_BITS, CODE_OFFSET_SAMP);
 
 % Apply frequency and phase offset
-freqoff     = 0.001; %
+freqoff     = 1e-4; % radians
 phaseoff    = 0; %pi/4;%
 rotatorvec  = exp(1.0i*2*pi*cumsum(ones(1,length(mod_in))*freqoff)+1.0i*phaseoff);
 
@@ -30,19 +30,20 @@ plot(real(mod_in(1:MAX_PLOT))); title('Modulated signal')
 t_vec       = 0:T_SAMP:NUM_SEC-T_SAMP;
 carrier     = sin(2*pi*fc_est*t_vec);
 post_acq    = mod_in .* carrier;
-%figure; plot(real(post_acq(1:MAX_PLOT))); title('Demodulated signal')
-
+figure; plot(real(post_acq(1:MAX_PLOT))); 
+title('Demodulated signal - first try after acq')
 
 %% Carrier Tracking: recover carrier
-
 % Multiply modulated input with reference code
-%TODO: Change to code tracking loop input
-carriertrack_in = mod_in .* bb_in;
+% TODO: Change post_acq baseband code to code tracking loop baseband code
+carriertrack_in = mod_in .* post_acq;
 figure; plot(real(carriertrack_in(1:1000))); title('Modulated signal x PRN code')
 
 [recovered_carrier, DDS_out] = carrier_tracking(carriertrack_in);
 
-%post_carrier = mod_in .* recovered_carrier;
-%figure; plot(real(post_carrier(1:MAX_PLOT))); title('Demodulated signal')
+post_carrier = mod_in .* recovered_carrier;
+figure; plot(real(post_carrier(1:MAX_PLOT))); 
+title('Demodulated signal - using tracked carrier')
 
 %% Code Tracking: track code phase error
+[IQ_vec, cp_updated] = code_tracking(post_carrier, cp_est, data_vec);
