@@ -47,8 +47,8 @@ t_vec   = 0:T_SAMP:bit_count/BITS_PER_SEC-T_SAMP;
 % Sine wave - potentially apply CFO
 carrier = sin(2*pi*F_C*t_vec);
 
-figure; subplot(211); plot(ca_vec(1:MAX_PLOT), 'x'); title('CA chips')
-subplot(212); plot(carrier(1:MAX_PLOT)); title('Carrier')
+%figure; subplot(211); plot(ca_vec(1:MAX_PLOT), 'x'); title('CA chips')
+%subplot(212); plot(carrier(1:MAX_PLOT)); title('Carrier')
 
 %% Outputs
 mod = ca_vec .* carrier;

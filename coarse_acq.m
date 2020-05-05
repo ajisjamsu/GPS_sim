@@ -26,8 +26,8 @@ P1(2:end-1) = 2*P1(2:end-1);
 
 freqs = F_SAMP*(0:L/2)/L;
 
-figure; plot(freqs, P1); 
-xlabel('Frequency (Hz)'); title('Modulated signal squared FFT')
+%figure; plot(freqs, P1); 
+%xlabel('Frequency (Hz)'); title('Modulated signal squared FFT')
 
 % Estimate carrier frequency
 [~, max_idx] = max(P1);

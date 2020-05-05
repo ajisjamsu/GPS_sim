@@ -33,7 +33,10 @@ post_acq    = mod_in .* carrier;
 %figure; plot(real(post_acq(1:MAX_PLOT))); title('Demodulated signal')
 
 
-%% Carrier Tracking: recover carrier frequency
+%% Carrier Tracking: recover carrier
+
+% Multiply modulated input with reference code
+%TODO: Change to code tracking loop input
 carriertrack_in = mod_in .* bb_in;
 figure; plot(real(carriertrack_in(1:1000))); title('Modulated signal x PRN code')
 
@@ -42,4 +45,4 @@ figure; plot(real(carriertrack_in(1:1000))); title('Modulated signal x PRN code'
 %post_carrier = mod_in .* recovered_carrier;
 %figure; plot(real(post_carrier(1:MAX_PLOT))); title('Demodulated signal')
 
-%% Code Tracking: 
+%% Code Tracking: track code phase error
