@@ -60,4 +60,4 @@ for idx=1:NumSymbols
 end
 
 figure; subplot(211); plot(errsigvec(1:1200)); title('Carrier error signal'); 
-subplot(212); plot(real(mixsampvec(1:1200))); title('Corrected samples');
+subplot(212); plot(real(mixsampvec(1:1200))); title('Tracked carrier');
