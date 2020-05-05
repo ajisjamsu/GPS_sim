@@ -5,7 +5,7 @@ close all
 % Testing constants
 NUM_BITS = 10;
 MAX_PLOT = 200;
-CODE_OFFSET_SAMP = 0;
+CODE_OFFSET_SAMP = 8;
 
 % GPS Constants
 PRN             = 2;

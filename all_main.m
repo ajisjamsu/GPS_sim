@@ -4,17 +4,16 @@ close all
 load loadconst.mat
 
 %% Generate test signal 
-data_vec = ones(1, NUM_BITS);
-data_vec(1:2:end) = 0;
+%data_vec = ones(1, NUM_BITS); data_vec(1:2:end) = 0;
+data_vec = [1 0 1 1 1 1 0 0 1 0];
 [bb_in, mod_in] = generate_chips(data_vec, NUM_BITS, CODE_OFFSET_SAMP);
 
 % Apply frequency and phase offset
-freqoff     = 1e-4; % radians
+freqoff     = 5e-5; % radians
 phaseoff    = 0; %pi/4;%
 rotatorvec  = exp(1.0i*2*pi*cumsum(ones(1,length(mod_in))*freqoff)+1.0i*phaseoff);
 
 % Input signal with frequency/phase offset, NO noise
-%bb_in=bb_in.*rotatorvec; 
 mod_in=mod_in.*rotatorvec; 
 
 figure; subplot(211);
