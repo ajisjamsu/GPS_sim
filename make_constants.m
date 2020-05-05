@@ -7,6 +7,7 @@ NUM_BITS = 10;
 MAX_PLOT = 200;
 
 % GPS Constants
+PRN             = 2;
 BITS_PER_SEC    = 50;
 CHIPS_PER_BIT   = 1023;
 SAMPS_PER_CHIP  = 4;

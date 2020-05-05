@@ -13,10 +13,9 @@ Outputs: mod = modulated BPSK samples, baseband = baseband chip samples
 load loadconst.mat
 
 %% 2) Make spreading code and apply data
-prn = 2;
 
 % Create 1 ms of spreading code upsampled to the proper rate
-goldcode_1ms = cacode(prn, SAMPS_PER_CHIP);
+goldcode_1ms = cacode(PRN, SAMPS_PER_CHIP);
 
 % Account for code phase offset
 
