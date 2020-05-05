@@ -26,9 +26,11 @@ goldcode_1ms = cacode(PRN, SAMPS_PER_CHIP);
 % If offset = POSITIVE, shift gold code RIGHT by [offset] samples
 % If offset = NEGATIVE, shift gold code LEFT
 goldcode_1ms = circshift(goldcode_1ms, offset);
+goldcode_1ms = goldcode_1ms.*2 - 1;
 
 %% 3) Assemble data vector ms-by-ms, inverting for 0 data bit
 ca_vec = [];
+data_vec = data_vec.*2 - 1;
 
 for bit_idx = 1:bit_count
    % Append 1ms of C/A code to the vector, inverted if data bit = 0
@@ -37,8 +39,7 @@ for bit_idx = 1:bit_count
    ca_vec(bit_start:bit_end) = goldcode_1ms * data_vec(bit_idx);
 end
 
-% Shift to +/- 1's
-ca_vec = ca_vec.*2 - 1; 
+
 
 %% 4) Modulate with L1 carrier
 % Time-domain vector for sine wave
@@ -46,8 +47,8 @@ t_vec   = 0:T_SAMP:bit_count/BITS_PER_SEC-T_SAMP;
 % Sine wave - potentially apply CFO
 carrier = sin(2*pi*F_C*t_vec);
 
-%figure; subplot(211); plot(ca_vec(1:MAX_PLOT), 'x'); title('CA chips')
-%subplot(212); plot(carrier(1:MAX_PLOT)); title('Carrier')
+figure; subplot(211); plot(ca_vec(1:MAX_PLOT), 'x'); title('CA chips')
+subplot(212); plot(carrier(1:MAX_PLOT)); title('Carrier')
 
 %% Outputs
 mod = ca_vec .* carrier;

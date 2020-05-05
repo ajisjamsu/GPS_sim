@@ -5,7 +5,8 @@ load loadconst.mat
 
 %% Generate test signal 
 data_vec = ones(1, NUM_BITS);
-[bb_in, mod_in] = generate_chips(data_vec, NUM_BITS);
+data_vec(1:2:end) = 0;
+[bb_in, mod_in] = generate_chips(data_vec, NUM_BITS, CODE_OFFSET_SAMP);
 
 % Apply frequency and phase offset
 freqoff     = 0.001; %
